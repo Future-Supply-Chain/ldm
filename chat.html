@@ -88,7 +88,7 @@
 
                     setTimeout(function () {
                         chatWindow.talk(convo, key) // restart current convo from point found in the answer
-                    }, 600)
+                    }, 300)
                 }
 
                 // sanitize text for search function
@@ -166,16 +166,12 @@
                 ]
             },
             "vendor-list": {
-                says: [`当前有 3 个项目, 一共涉及 10 个供应商 \n 
-                钢材供应商：ArcelorMittal（安赛乐米塔尔），全球最大的钢铁生产商之一，提供高质量的钢材产品。\n 
-铝合金供应商：Alcoa（美国铝业公司），全球领先的铝生产商，提供多种牌号的铝合金材料。\n 
-镁合金供应商：Magna International（麦格纳国际），一家全球性的汽车零部件供应商，也生产镁合金压铸件。\n 
-工程塑料供应商：BASF（巴斯夫），全球最大的化学品生产商之一，提供多种高性能工程塑料材料。\n 
-橡胶供应商：Bridgestone（普利司通），世界著名的轮胎和橡胶制品生产商。\n 
-化学品供应商：Dow Chemical（陶氏化学），全球最大的化学品生产商之一，提供各种化学品解决方案。\n 
-电子元件供应商：Infineon Technologies（英飞凌科技），德国半导体制造商，提供各种电子传感器和执行器。\n 
-紧固件供应商：SFS Group（瑞士紧固件集团），全球领先的紧固件制造商，提供各种高质量紧固件产品。\n 
-轴承供应商：SKF（斯凯孚），瑞典轴承制造商，提供各种类型的轴承产品。\n `],
+                says: [`当前有 3 个项目, 一共涉及 10 个供应商`, `
+                钢材供应商：ArcelorMittal（安赛乐米塔尔），全球最大的钢铁生产商之一，提供高质量的钢材产品`, `
+铝合金供应商：Alcoa（美国铝业公司），全球领先的铝生产商，提供多种牌号的铝合金材料。`, `
+镁合金供应商：Magna International（麦格纳国际），一家全球性的汽车零部件供应商，也生产镁合金压铸件。`, ` 
+橡胶供应商：Bridgestone（普利司通），世界著名的轮胎和橡胶制品生产商。`, `
+化学品供应商：Dow Chemical（陶氏化学），全球最大的化学品生产商之一，提供各种化学品解决方案。`, "..."],
                 reply: [
                     {
                         question: "是否有原材料会间接受到影响?",
@@ -187,16 +183,31 @@
                 ]
             },
             "notification-list": {
-                says: [`以下是现在开启的通知. 
+                says: [`您有 6 个处于开启中的通知. 
                 根据您配置的资源利用配置, 所有事件将会在发生一小时内收到通知. 
-                预计相关人员平均每天收到 1 条通知.`],
+                预计相关人员平均每天收到 1 条通知.`, `如果需要讨论应对措施, 建议 "邀请会议" `],
                 reply: [
                     {
-                        question: "是否有原材料会间接受到影响?",
-                        answer: "affected"
+                        question: "管理通知",
+                        answer: "notification-update"
                     }, {
-                        question: "更新供应商信息",
-                        answer: "vendor-update"
+                        question: "检查收信人",
+                        answer: "notification-receivers"
+                    }, {
+                        question: "邀请会议",
+                        answer: "email-invite"
+                    }
+                ]
+            },
+            "notification-update": {
+                says: [`功能维护中`],
+                reply: [
+                    {
+                        question: "查看供应商列表",
+                        answer: "vendor-list"
+                    }, {
+                        question: "从头再来",
+                        answer: "ice"
                     }
                 ]
             },
@@ -215,14 +226,39 @@
                 ]
             },
             "vendor-update": {
-                says: [`好的, 请上传供应商列表, 或者逐条输入新增的供应商信息`],
+                says: [`好的, 请上传供应商列表, 或者逐条输入新增的供应商信息`, `...`, `收到文件, 解析中`, `...`, `正在更新供应商列表`, `新的供应商列表更新完成`,
+                    `您有 3 个原材料计划发生了调整, 原本供应商间接收到旧金山野火的影响概率在 40%, 新供应商的价格上浮 1.3%, 这是企业降低风险的明智的决策!`, `是否邀请相关人员推进审批执行?`],
                 reply: [
                     {
-                        question: "是否有原材料会间接受到影响?",
-                        answer: "affected"
+                        question: "邀请会议",
+                        answer: "email-invite"
                     }, {
-                        question: "更新供应商信息",
-                        answer: "vendor-update"
+                        question: "直接执行",
+                        answer: "confirm-exe"
+                    }
+                ]
+            },
+            "email-invite": {
+                says: [`此问题的历史习惯, 您需要邀请`],
+                reply: [
+                    {
+                        question: "确认邀请",
+                        answer: "email-confirm"
+                    }, {
+                        question: "也可输入欲删除的编号或欲增加的人员",
+                        answer: "manage-receivers"
+                    }
+                ]
+            },
+            "confirm-exe": {
+                says: [`新的原材料计划已安排, 辛苦了! `],
+                reply: [
+                    {
+                        question: "下班",
+                        answer: "ice"
+                    }, {
+                        question: "查看供应商",
+                        answer: "vendor-list"
                     }
                 ]
             },
