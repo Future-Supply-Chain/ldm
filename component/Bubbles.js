@@ -127,12 +127,19 @@ function Bubbles(container, self, options) {
     // all further .talk() calls will append the conversation with additional blocks defined in convo parameter
     _convo = Object.assign(_convo, convo) // POLYFILL REQUIRED FOR OLDER BROWSERS
 
+    // console.log(here);
+    // console.error(here);
+
+
     this.reply(_convo[here])
     here ? (standingAnswer = here) : false
   }
 
   var iceBreaker = false // this variable holds answer to whether this is the initative bot interaction or not
   this.reply = function(turn) {
+
+    console.log(turn);
+
     iceBreaker = typeof turn === "undefined"
     turn = !iceBreaker ? turn : _convo.ice
     questionsHTML = ""

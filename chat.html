@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Keyboard Input for chat-bubble</title>
+    <title> David 与 灾难大模型 的聊天 </title>
 
     <!-- for mobile screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,8 +85,8 @@
 
                 // do this if answer found
                 var match = function (key) {
-                    setTimeout(function () {
 
+                    setTimeout(function () {
                         chatWindow.talk(convo, key) // restart current convo from point found in the answer
                     }, 600)
                 }
@@ -166,8 +166,30 @@
                 ]
             },
             "vendor-list": {
-                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
-                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+                says: [`当前有 3 个项目, 一共涉及 10 个供应商 \n 
+                钢材供应商：ArcelorMittal（安赛乐米塔尔），全球最大的钢铁生产商之一，提供高质量的钢材产品。\n 
+铝合金供应商：Alcoa（美国铝业公司），全球领先的铝生产商，提供多种牌号的铝合金材料。\n 
+镁合金供应商：Magna International（麦格纳国际），一家全球性的汽车零部件供应商，也生产镁合金压铸件。\n 
+工程塑料供应商：BASF（巴斯夫），全球最大的化学品生产商之一，提供多种高性能工程塑料材料。\n 
+橡胶供应商：Bridgestone（普利司通），世界著名的轮胎和橡胶制品生产商。\n 
+化学品供应商：Dow Chemical（陶氏化学），全球最大的化学品生产商之一，提供各种化学品解决方案。\n 
+电子元件供应商：Infineon Technologies（英飞凌科技），德国半导体制造商，提供各种电子传感器和执行器。\n 
+紧固件供应商：SFS Group（瑞士紧固件集团），全球领先的紧固件制造商，提供各种高质量紧固件产品。\n 
+轴承供应商：SKF（斯凯孚），瑞典轴承制造商，提供各种类型的轴承产品。\n `],
+                reply: [
+                    {
+                        question: "是否有原材料会间接受到影响?",
+                        answer: "affected"
+                    }, {
+                        question: "更新原材料信息信息",
+                        answer: "vendor-update"
+                    }
+                ]
+            },
+            "notification-list": {
+                says: [`以下是现在开启的通知. 
+                根据您配置的资源利用配置, 所有事件将会在发生一小时内收到通知. 
+                预计相关人员平均每天收到 1 条通知.`],
                 reply: [
                     {
                         question: "是否有原材料会间接受到影响?",
@@ -178,9 +200,22 @@
                     }
                 ]
             },
-            "notification-list": {
-                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
-                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+            "affected": {
+                says: [`以下是现在开启的通知. 
+                根据您配置的资源利用配置, 所有事件将会在发生一小时内收到通知. 
+                预计相关人员平均每天收到 1 条通知.`],
+                reply: [
+                    {
+                        question: "是否有原材料会间接受到影响?",
+                        answer: "affected"
+                    }, {
+                        question: "更新供应商信息",
+                        answer: "vendor-update"
+                    }
+                ]
+            },
+            "vendor-update": {
+                says: [`好的, 请上传供应商列表, 或者逐条输入新增的供应商信息`],
                 reply: [
                     {
                         question: "是否有原材料会间接受到影响?",
