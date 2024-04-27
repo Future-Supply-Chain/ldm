@@ -61,7 +61,7 @@
                                 // reply: o.convo[o.standingAnswer].reply
                                 reply: [
                                     {
-                                        question: "查看灾难",
+                                        question: "查看突发状况",
                                         answer: "wild-fire"
                                     },
                                     {
@@ -136,10 +136,10 @@
 
         var convo = {
             ice: { // the starting point 
-                says: ["我是灾难大模型", "欢迎回来, David!", "最近美国加州发生了野火, 但公司最近没有项目使用加州的供应商, 是否查看野火造成的影响?"],
+                says: ["我是灾难大模型. 当前处于 青岛毕勤 的私人空间, 请放心交流.", "欢迎回来, David!", "最近沈阳发生了冰雹, 可能会影响公路运输, 但公司最近没有项目使用沈阳及其周边的供应商, 是否查看公路情况?"],
                 reply: [
                     {
-                        question: "查看野火",
+                        question: "查看沈阳及其周边公路的影响",
                         answer: "wild-fire"
                     },
                     {
@@ -153,25 +153,46 @@
                 ]
             },
             "wild-fire": {
-                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
-                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+                says: [`我们当前并没使用青岛供应商, 是否有间接原材料影响报告?`],
                 reply: [
                     {
-                        question: "是否有原材料会间接受到影响?",
+                        question: "查看对比曲线",
                         answer: "affected"
+                    },
+                    {
+                        question: "查看报告",
+                        answer: "report"
                     }, {
                         question: "更新供应商信息",
                         answer: "vendor-update"
                     }
                 ]
             },
+            "report": {
+                says: [`正在生成风险评估报告`, `...`,
+                    `<img src=images/report.jpg />`, `如果需要讨论应对措施, 建议 "邀请会议" `],
+                reply: [
+                    {
+                        question: "查看供应商信息",
+                        answer: "vendor-list"
+                    },
+                    {
+                        question: "查看对比曲线",
+                        answer: "affected"
+                    }, {
+                        question: "邀请会议",
+                        answer: "email-invite"
+                    }
+                ]
+            },
             "vendor-list": {
-                says: [`当前有 3 个项目, 一共涉及 10 个供应商`, `
+                says: [`当前有 4 个项目, 一共涉及 32 个供应商`, `
                 钢材供应商：ArcelorMittal（安赛乐米塔尔），全球最大的钢铁生产商之一，提供高质量的钢材产品`, `
 铝合金供应商：Alcoa（美国铝业公司），全球领先的铝生产商，提供多种牌号的铝合金材料。`, `
 镁合金供应商：Magna International（麦格纳国际），一家全球性的汽车零部件供应商，也生产镁合金压铸件。`, ` 
 橡胶供应商：Bridgestone（普利司通），世界著名的轮胎和橡胶制品生产商。`, `
-化学品供应商：Dow Chemical（陶氏化学），全球最大的化学品生产商之一，提供各种化学品解决方案。`, "..."],
+化学品供应商：Dow Chemical（陶氏化学），全球最大的化学品生产商之一，提供各种化学品解决方案。`, "...", `正在汇总供应商分布`,
+                    `<img src=images/map.jpg />`],
                 reply: [
                     {
                         question: "是否有原材料会间接受到影响?",
@@ -185,7 +206,13 @@
             "notification-list": {
                 says: [`您有 6 个处于开启中的通知. 
                 根据您配置的资源利用配置, 所有事件将会在发生一小时内收到通知. 
-                预计相关人员平均每天收到 1 条通知.`, `如果需要讨论应对措施, 建议 "邀请会议" `],
+                预计相关人员平均每天收到 1 条通知.`,
+                    ` - 12 个供应商所在地台风预警`,
+                    ` - 全国高速公路受灾预警`,
+                    ` - 进出口原材料价格波动预警`,
+                    ` - 更多...`,
+
+                    `如果需要讨论应对措施, 建议 "邀请会议" `],
                 reply: [
                     {
                         question: "管理通知",
@@ -196,6 +223,21 @@
                     }, {
                         question: "邀请会议",
                         answer: "email-invite"
+                    }, {
+                        question: "切换到专业角色, 查看 173 个风险预警",
+                        answer: "switch-admin"
+                    }
+                ]
+            },
+            "switch-admin": {
+                says: [`Hi 老板, 您无权操作一线专业人员`],
+                reply: [
+                    {
+                        question: "查看供应商列表",
+                        answer: "vendor-list"
+                    }, {
+                        question: "切换回 David ",
+                        answer: "ice"
                     }
                 ]
             },
@@ -212,13 +254,11 @@
                 ]
             },
             "affected": {
-                says: [`以下是现在开启的通知. 
-                根据您配置的资源利用配置, 所有事件将会在发生一小时内收到通知. 
-                预计相关人员平均每天收到 1 条通知.`],
+                says: [`报告生成中`, `...`, `<img src=images/lines.jpg />`, `请查收 链动未来供应链风险 评估报告`],
                 reply: [
                     {
-                        question: "是否有原材料会间接受到影响?",
-                        answer: "affected"
+                        question: "邀请会议",
+                        answer: "email-invite"
                     }, {
                         question: "更新供应商信息",
                         answer: "vendor-update"
@@ -242,11 +282,39 @@
                 says: [`此问题的历史习惯, 您需要邀请`],
                 reply: [
                     {
-                        question: "确认邀请",
+                        question: "邀请半小时后的会议",
                         answer: "email-confirm"
+                    },
+                    {
+                        question: "邀请 1 小时后的会议",
+                        answer: "email-confirm"
+                    }, {
+                        question: "输入欲自定义设置的时间",
+                        answer: "email-confirm"
+                    }
+                ]
+            },
+            "email-confirm": {
+                says: [`会议邀请已发送, 其中 2 人秒点了确认. `],
+                reply: [
+                    {
+                        question: "拜拜",
+                        answer: "ice"
                     }, {
                         question: "也可输入欲删除的编号或欲增加的人员",
                         answer: "manage-receivers"
+                    }
+                ]
+            },
+            "manage-receivers": {
+                says: [`功能维护中`],
+                reply: [
+                    {
+                        question: "查看供应商列表",
+                        answer: "vendor-list"
+                    }, {
+                        question: "从头再来",
+                        answer: "ice"
                     }
                 ]
             },
