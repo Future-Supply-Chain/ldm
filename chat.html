@@ -56,9 +56,27 @@
                         {
                             "i-dont-get-it": {
                                 says: [
-                                    "Sorry, I don't get it 😕. Pls repeat? Or you can just click below 👇"
+                                    "抱歉没能理解您的意思, 我以关闭非业务聊天能力, 可尝试如下输入"
                                 ],
-                                reply: o.convo[o.standingAnswer].reply
+                                // reply: o.convo[o.standingAnswer].reply
+                                reply: [
+                                    {
+                                        question: "查看灾难",
+                                        answer: "wild-fire"
+                                    },
+                                    {
+                                        question: "查看供应商列表",
+                                        answer: "vendor-list"
+                                    },
+                                    {
+                                        question: "查看生效的通知",
+                                        answer: "notification-list"
+                                    },
+                                    {
+                                        question: "从头再来",
+                                        answer: "ice"
+                                    }
+                                ]
                             }
                         },
                         "i-dont-get-it"
@@ -68,6 +86,7 @@
                 // do this if answer found
                 var match = function (key) {
                     setTimeout(function () {
+
                         chatWindow.talk(convo, key) // restart current convo from point found in the answer
                     }, 600)
                 }
@@ -79,28 +98,96 @@
 
                 // search function
                 var found = false
+                /*
+                for (const dialog of o.convo) {
+                    dialog.reply.forEach(function (e, i) {
+                        strip(e.question).includes(strip(o.input)) && o.input.length > 0
+                            ? (found = e.answer)
+                            : found ? null : (found = false)
+                    })
+                    if (found) { break; }
+                }
+                found ? match(found) : miss()
+                */
+
+
+                // o.convo.forEach(function (dialog, i) {
+                //     dialog.reply.forEach(function (e, i) {
+                //         strip(e.question).includes(strip(o.input)) && o.input.length > 0
+                //             ? (found = e.answer)
+                //             : found ? null : (found = false)
+                //     })
+                //     if (found) { return; }
+                // })
+
+
                 o.convo[o.standingAnswer].reply.forEach(function (e, i) {
                     strip(e.question).includes(strip(o.input)) && o.input.length > 0
                         ? (found = e.answer)
                         : found ? null : (found = false)
                 })
                 found ? match(found) : miss()
+
             }
         }) // done setting up chat-bubble
 
         // conversation object defined separately, but just the same as in the
         // "Basic chat-bubble Example" (1-basics.html)
+
         var convo = {
-            ice: {
-                says: ["I'm the Large Disaster Model", "What can I help you?"],
+            ice: { // the starting point 
+                says: ["我是灾难大模型", "欢迎回来, David!", "最近美国加州发生了野火, 但公司最近没有项目使用加州的供应商, 是否查看野火造成的影响?"],
                 reply: [
                     {
-                        question: "Banana",
-                        answer: "banana"
+                        question: "查看野火",
+                        answer: "wild-fire"
                     },
                     {
-                        question: "Ice Cream",
-                        answer: "ice-cream"
+                        question: "查看供应商信息",
+                        answer: "vendor-list"
+                    },
+                    {
+                        question: "查看生效的通知",
+                        answer: "notification-list"
+                    }
+                ]
+            },
+            "wild-fire": {
+                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
+                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+                reply: [
+                    {
+                        question: "是否有原材料会间接受到影响?",
+                        answer: "affected"
+                    }, {
+                        question: "更新供应商信息",
+                        answer: "vendor-update"
+                    }
+                ]
+            },
+            "vendor-list": {
+                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
+                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+                reply: [
+                    {
+                        question: "是否有原材料会间接受到影响?",
+                        answer: "affected"
+                    }, {
+                        question: "更新供应商信息",
+                        answer: "vendor-update"
+                    }
+                ]
+            },
+            "notification-list": {
+                says: [`这场高地大火的规模从周一（30日）晚到周二（31日）几乎扩大了一倍。
+                截至周二晚上，加州森林消防局（Cal Fire）已控制约10%的火势。`],
+                reply: [
+                    {
+                        question: "是否有原材料会间接受到影响?",
+                        answer: "affected"
+                    }, {
+                        question: "更新供应商信息",
+                        answer: "vendor-update"
                     }
                 ]
             },
